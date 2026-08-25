@@ -1,0 +1,24 @@
+{
+  "name": "magister-marketing",
+  "displayName": "Magister Marketing",
+  "version": "1.0.0",
+  "description": "Plan and execute marketing from Claude: projects, brand profiles, marketing plans, audits, AI visibility, assets, content, social accounts, and paused-first ad campaigns.",
+  "author": {
+    "name": "Magister Marketing",
+    "email": "team@magistermarketing.com",
+    "url": "https://magistermarketing.com"
+  },
+  "homepage": "https://magistermarketing.com/mcp",
+  "repository": "https://github.com/Magister-Marketing/magister-mcp",
+  "license": "MIT",
+  "keywords": [
+    "magister",
+    "marketing",
+    "analytics",
+    "content",
+    "social-media",
+    "advertising",
+    "seo",
+    "ai-visibility"
+  ]
+}

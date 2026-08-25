@@ -1,9 +1,14 @@
 # Magister Marketing MCP
 
-This portable Agent Plugin connects Cursor and Grok Build to Magister Marketing's
-hosted, review-safe MCP endpoint. It adds no local executable, hook, skill, or
-credential. The installed client connects directly over Streamable HTTP and asks
-the user to authorize Magister through OAuth.
+This portable plugin connects Cursor, Grok Build, Claude Code, and Cowork to
+Magister Marketing's hosted, review-safe MCP endpoint. It adds no local
+executable, hook, skill, or credential. The installed client connects directly
+over Streamable HTTP and asks the user to authorize Magister through OAuth.
+
+Three manifest formats sit side by side because each host reads a different one
+and ignores the rest: `plugin.json` and `mcp.json` are Agent Plugins 1.0.0 for
+Cursor, `.claude-plugin/plugin.json` is Claude Code's manifest, and `.mcp.json`
+carries the single server definition that both Grok Build and Claude Code read.
 
 Magister lets an authorized marketing team inspect projects, brand profiles,
 plans, audits, AI visibility, assets, social performance, and advertising data.
@@ -29,6 +34,11 @@ The package is designed for publication from
   Marketplace listing after approval. Cursor reads `plugin.json` and `mcp.json`.
 - Grok Build: install the plugin from its marketplace listing after approval.
   Grok reads `.mcp.json`.
+- Claude Code and Cowork: install from the Claude plugin directory after
+  approval, or add this repository as a plugin marketplace directly. Claude Code
+  reads `.claude-plugin/plugin.json` and auto-discovers the server from
+  `.mcp.json`. Magister is also available in Claude as a connector on its own,
+  without this plugin, through the Claude connector directory.
 - Grok chat: add `https://mcp.magistermarketing.com/mcp/catalog` as a custom MCP
   connector. xAI does not currently document a self-serve public catalog
   submission route for Grok chat.
@@ -70,7 +80,8 @@ deletion and retention controls. Support is available at
 
 - OAuth credentials and provider tokens are never committed to this package.
 - There are no commands, subprocesses, hooks, or executable files.
-- Both MCP configuration files pin the same HTTPS endpoint.
+- Both MCP configuration files pin the same HTTPS endpoint, and the Claude Code
+  manifest declares no server of its own, so there is one endpoint to review.
 - Tool permissions and confirmation requirements are enforced by Magister's
   server; changing a local description cannot widen access.
 
