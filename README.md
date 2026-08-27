@@ -16,12 +16,12 @@ It can also propose and create confirmed AI-visibility tracking sets, then run
 retry-safe measurement rounds with stable idempotency keys. Completed visibility
 reports include readable terminal output and interactive charts in MCP
 Apps-compatible hosts.
-Its separately scoped tools can also run metered research and audits, create
-assets and drafts, publish approved content, schedule social posts, and manage
-paused-first ad campaigns. The catalog can create Meta and TikTok campaigns only
-through their atomic paused-create flow and can pause running campaigns; it cannot
-activate campaigns or begin ad spend. Irreversible,
-external, send, and destructive effects are identified by each tool's metadata;
+Its separately scoped tools can also run metered research and audits, write text
+assets, draft and schedule social posts, and manage paused-first ad campaigns. The
+catalog can create Meta and TikTok campaigns only through their atomic paused-create
+flow and can pause running campaigns; it cannot activate campaigns or begin ad
+spend. Irreversible, external, send, and destructive effects are identified by
+each tool's metadata;
 Magister enforces its scopes, roles, and documented immediate-confirmation gates
 server-side.
 
