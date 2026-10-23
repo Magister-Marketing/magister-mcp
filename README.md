@@ -1,9 +1,10 @@
 # Magister Marketing MCP
 
 This portable plugin connects Cursor, Grok Build, Claude Code, and Cowork to
-Magister Marketing's hosted, review-safe MCP endpoint. It adds no local
-executable, hook, skill, or credential. The installed client connects directly
-over Streamable HTTP and asks the user to authorize Magister through OAuth.
+Magister Marketing's hosted, review-safe MCP endpoint, plus five Markdown skills
+that show the assistant how to use it well. It adds no local executable, hook, or
+credential. The installed client connects directly over Streamable HTTP and asks
+the user to authorize Magister through OAuth.
 
 Three manifest formats sit side by side because each host reads a different one
 and ignores the rest: `plugin.json` and `mcp.json` are Agent Plugins 1.0.0 for
@@ -16,14 +17,28 @@ It can also propose and create confirmed AI-visibility tracking sets, then run
 retry-safe measurement rounds with stable idempotency keys. Completed visibility
 reports include readable terminal output and interactive charts in MCP
 Apps-compatible hosts.
-Its separately scoped tools can also run metered research and audits, write text
-assets, draft and schedule social posts, and manage paused-first ad campaigns. The
-catalog can create Meta and TikTok campaigns only through their atomic paused-create
-flow and can pause running campaigns; it cannot activate campaigns or begin ad
-spend. Irreversible, external, send, and destructive effects are identified by
-each tool's metadata;
+Its separately scoped tools can also run metered research and audits, query the
+connected Google Ads, Analytics and Search Console accounts read-only, write text
+assets and website drafts, draft and schedule social posts, and manage paused-first
+ad campaigns. It can create Meta, TikTok, and Google Ads Search campaigns only
+through their atomic paused-create flow and can pause running campaigns; it cannot
+activate campaigns or begin ad spend. It works with the services a team connected
+to Magister through one purpose-built tool per job: CRM and support (HubSpot,
+Pipedrive, Attio, folk, Zoho CRM, Intercom), prospecting, email and SMS
+marketing (Klaviyo, Mailchimp, Kit, Resend and others), product and web
+analytics, Google Workspace, Notion, site and design tools (Vercel, GitLab,
+Builder.io, Framer, Canva, Formspree), and social schedulers. Drafts and record
+edits run directly; publishing, sending, scheduling, and other changes that go
+live wait for the user's own approval. Irreversible, external, send, and
+destructive effects are identified by each tool's metadata;
 Magister enforces its scopes, roles, and documented immediate-confirmation gates
 server-side.
+
+## Skills
+
+`skills/` holds five skills, plain Markdown read by the assistant: analytics,
+AI visibility, the marketing plan, paid advertising, and social publishing. Each
+names only tools this endpoint serves, and none contains commands or code.
 
 ## Install
 
@@ -46,11 +61,11 @@ The package is designed for publication from
 On first use, complete the Magister OAuth flow in the browser and select the
 organization and permissions to grant. No API key belongs in these files.
 
-For the complete custom-client surface, Magister customers may manually connect
-`https://mcp.magistermarketing.com/mcp`. Public marketplace packages deliberately
-use the narrower `/mcp/catalog` surface reviewed for broad distribution. The
-catalog assumes an existing Magister account and entitlement and does not create
-paid projects or initiate subscription checkout. It provides workflow tools and
+`https://mcp.magistermarketing.com/mcp` and `/mcp/catalog` serve the same tools;
+they differ only in the OAuth resource a token is bound to, and the packages use
+`/mcp/catalog`, the listed address. The endpoint assumes an existing Magister
+account and entitlement and does not create paid projects or initiate
+subscription checkout. It provides workflow tools and
 does not serve advertisements or sponsored content inside the client.
 
 ## Network and data disclosure
