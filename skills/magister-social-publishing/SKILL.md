@@ -5,7 +5,7 @@ description: Draft, schedule, and publish social posts through Magister, and rea
 
 # Social posts through Magister
 
-Drafting and scheduling are ordinary writes. **Publishing to a public account
+Drafting saves content without publishing it. Scheduling and publishing require the person’s approval. **Publishing to a public account
 requires a person's approval** and cannot be forced from this connector.
 
 Resolve `project_id` from `list_projects` first; never guess one.

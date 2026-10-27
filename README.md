@@ -9,7 +9,8 @@ the user to authorize Magister through OAuth.
 Three manifest formats sit side by side because each host reads a different one
 and ignores the rest: `plugin.json` and `mcp.json` are Agent Plugins 1.0.0 for
 Cursor, `.claude-plugin/plugin.json` is Claude Code's manifest, and `.mcp.json`
-carries the single server definition that both Grok Build and Claude Code read.
+carries the shared server definition. Claude then reads the same-named manifest
+server, which overrides it with `/mcp/anthropic`; Grok Build keeps `/mcp/catalog`.
 
 Magister lets an authorized marketing team inspect projects, brand profiles,
 plans, audits, AI visibility, assets, social performance, and advertising data.
@@ -17,7 +18,8 @@ It can also propose and create confirmed AI-visibility tracking sets, then run
 retry-safe measurement rounds with stable idempotency keys. Completed visibility
 reports include readable terminal output and interactive charts in MCP
 Apps-compatible hosts.
-Its separately scoped tools can also run metered research and audits, query the
+Baseline access includes plan and brand-memory edits and metered research and
+audits. With the appropriate permissions, tools can also query the
 connected Google Ads, Analytics and Search Console accounts read-only, write text
 assets and website drafts, draft and schedule social posts, and manage paused-first
 ad campaigns. It can create Meta, TikTok, and Google Ads Search campaigns only
@@ -50,10 +52,11 @@ The package is designed for publication from
 - Grok Build: install the plugin from its marketplace listing after approval.
   Grok reads `.mcp.json`.
 - Claude Code and Cowork: install from the Claude plugin directory after
-  approval, or add this repository as a plugin marketplace directly. Claude Code
+  approval. For local testing, run `claude --plugin-dir /absolute/path/to/this/package`. Claude Code
   reads `.claude-plugin/plugin.json` and auto-discovers the server from
   `.mcp.json`. Magister is also available in Claude as a connector on its own,
-  without this plugin, through the Claude connector directory.
+  without this plugin, by adding the custom connector URL below. Directory
+  submissions are pending; this package does not claim an approved listing.
 - Grok chat: add `https://mcp.magistermarketing.com/mcp/catalog` as a custom MCP
   connector. xAI does not currently document a self-serve public catalog
   submission route for Grok chat.
@@ -63,7 +66,10 @@ organization and permissions to grant. No API key belongs in these files.
 
 `https://mcp.magistermarketing.com/mcp` and `/mcp/catalog` serve the same tools;
 they differ only in the OAuth resource a token is bound to, and the packages use
-`/mcp/catalog`, the listed address. The endpoint assumes an existing Magister
+`/mcp/catalog`. Claude uses `/mcp/anthropic`, a separate OAuth resource that
+omits general image generation and rejects stale image calls with a Magister
+link. This applies equally to reviewers and users. Other clients keep image
+generation through their existing endpoints. The endpoint assumes an existing Magister
 account and entitlement and does not create paid projects or initiate
 subscription checkout. It provides workflow tools and
 does not serve advertisements or sponsored content inside the client.
@@ -95,8 +101,8 @@ deletion and retention controls. Support is available at
 
 - OAuth credentials and provider tokens are never committed to this package.
 - There are no commands, subprocesses, hooks, or executable files.
-- Both MCP configuration files pin the same HTTPS endpoint, and the Claude Code
-  manifest declares no server of its own, so there is one endpoint to review.
+- The shared MCP configuration files pin the same HTTPS endpoint; the Claude Code
+  manifest explicitly selects the Anthropic endpoint under the same server name.
 - Tool permissions and confirmation requirements are enforced by Magister's
   server; changing a local description cannot widen access.
 

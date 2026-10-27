@@ -1,8 +1,8 @@
 {
   "name": "magister-marketing",
   "displayName": "Magister Marketing",
-  "version": "1.1.0",
-  "description": "Plan and execute marketing from Claude: projects, brand profiles, marketing plans, audits, AI visibility, assets, content, social accounts, and paused-first ad campaigns.",
+  "version": "1.1.1",
+  "description": "Work on your marketing plan, analytics, AI visibility, paid ads, and social publishing with five Magister skills and an OAuth MCP connection.",
   "author": {
     "name": "Magister Marketing",
     "email": "team@magistermarketing.com",
@@ -20,5 +20,13 @@
     "advertising",
     "seo",
     "ai-visibility"
-  ]
+  ],
+  "icon": "./assets/magister-icon.png",
+  "privacyPolicyUrl": "https://magistermarketing.com/privacy",
+  "mcpServers": {
+    "magister": {
+      "type": "http",
+      "url": "https://mcp.magistermarketing.com/mcp/anthropic"
+    }
+  }
 }
