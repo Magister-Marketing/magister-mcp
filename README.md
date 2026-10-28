@@ -34,6 +34,10 @@ destructive effects are identified by each tool's metadata;
 Magister enforces its scopes, roles, and documented immediate-confirmation gates
 server-side.
 
+Shared marketing context includes confirmed preferences, observed style, measured
+lessons and source coverage. Agents record explicit preferences and creative
+feedback through tools; Magister cannot read their other conversations automatically.
+
 ## Skills
 
 `skills/` holds five skills, plain Markdown read by the assistant: analytics,
