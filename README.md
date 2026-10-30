@@ -63,9 +63,9 @@ in these files.
   adding a priced brand are done in Magister.
 - **Each AI app gets the tools its provider's rules allow.** Magister runs one
   MCP server for every app. Claude is not offered Magister's two general image
-  generators, under Anthropic's directory rules. ChatGPT and Codex are not
-  offered its Google Maps research and influencer discovery tools, under OpenAI's
-  rules. A tool an app is not offered answers with a link to do that job in
+  generators, under Anthropic's directory rules. Claude, ChatGPT and Codex are not
+  offered its Google Maps research and influencer discovery tools, under their
+  directories' rules. A tool an app is not offered answers with a link to do that job in
   Magister. Connecting your own outside MCP servers to Magister needs Magister
   added by its own URL, `https://mcp.magistermarketing.com/mcp`, rather than
   through a directory listing or this plugin.
