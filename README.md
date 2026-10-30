@@ -1,82 +1,91 @@
-# Magister Marketing MCP
+# Magister Marketing
 
-This portable plugin connects Cursor, Grok Build, Claude Code, and Cowork to
-Magister Marketing's hosted, review-safe MCP endpoint, plus five Markdown skills
-that show the assistant how to use it well. It adds no local executable, hook, or
-credential. The installed client connects directly over Streamable HTTP and asks
-the user to authorize Magister through OAuth.
+Run your marketing from your AI assistant. This plugin connects Claude, Cursor,
+and Grok Build to your Magister Marketing workspace and adds five skills that
+show the assistant how to use it well. Ask what to work on next, how your site,
+search, ads and social are doing, whether AI assistants recommend your brand, or
+to draft and schedule this week's posts, and the assistant answers from your
+own brand data in Magister instead of generic advice.
 
-Three manifest formats sit side by side because each host reads a different one
-and ignores the rest: `plugin.json` and `mcp.json` are Agent Plugins 1.0.0 for
-Cursor, `.claude-plugin/plugin.json` is Claude Code's manifest, and `.mcp.json`
-carries the shared server definition. Claude then reads the same-named manifest
-server, which overrides it with `/mcp/anthropic`; Grok Build keeps `/mcp/catalog`.
+## What you can do
 
-Magister lets an authorized marketing team inspect projects, brand profiles,
-plans, audits, AI visibility, assets, social performance, and advertising data.
-It can also propose and create confirmed AI-visibility tracking sets, then run
-retry-safe measurement rounds with stable idempotency keys. Completed visibility
-reports include readable terminal output and interactive charts in MCP
-Apps-compatible hosts.
-Baseline access includes plan and brand-memory edits and metered research and
-audits. With the appropriate permissions, tools can also query the
-connected Google Ads, Analytics and Search Console accounts read-only, write text
-assets and website drafts, draft and schedule social posts, and manage paused-first
-ad campaigns. It can create Meta, TikTok, and Google Ads Search campaigns only
-through their atomic paused-create flow and can pause running campaigns; it cannot
-activate campaigns or begin ad spend. It works with the services a team connected
-to Magister through one purpose-built tool per job: CRM and support (HubSpot,
-Pipedrive, Attio, folk, Zoho CRM, Intercom), prospecting, email and SMS
-marketing (Klaviyo, Mailchimp, Kit, Resend and others), product and web
-analytics, Google Workspace, Notion, site and design tools (Vercel, GitLab,
-Builder.io, Framer, Canva, Formspree), and social schedulers. Drafts and record
-edits run directly; publishing, sending, scheduling, and other changes that go
-live wait for the user's own approval. Irreversible, external, send, and
-destructive effects are identified by each tool's metadata;
-Magister enforces its scopes, roles, and documented immediate-confirmation gates
-server-side.
+- **Work your marketing plan.** Find the highest-priority task, read its brief,
+  record progress, and add, edit or reprioritize work.
+- **See how your marketing is performing.** Ask about traffic, conversions,
+  search queries and rankings, ad spend, and social and store results from the
+  Google Analytics, Search Console, Google Ads, social, store and CRM accounts
+  you connected to Magister, and what changed and why.
+- **Track your AI visibility.** See how ChatGPT, Claude, Gemini, Perplexity and
+  Google AI Overviews mention and rank your brand on the prompts your buyers ask,
+  compare models over time, and open an interactive report in the chat.
+- **Draft, schedule and publish social posts** in your brand voice, and read
+  post and follower analytics and the best times to post.
+- **Review paid ads and create campaigns safely.** Read Google Ads, Meta Ads and
+  TikTok Ads performance, and create Meta, TikTok or Google Ads Search campaigns
+  that are always created paused.
+- **Use the tools your team connected to Magister,** one purpose-built tool per
+  job: CRM and support (HubSpot, Pipedrive, Attio, folk, Zoho CRM, Intercom),
+  email and SMS marketing (Klaviyo, Mailchimp, Kit, Resend and others), product
+  and web analytics, Google Workspace, Notion, site and design tools, and social
+  schedulers.
 
 Shared marketing context includes confirmed preferences, observed style, measured
 lessons and source coverage. Agents record explicit preferences and creative
 feedback through tools; Magister cannot read their other conversations automatically.
 
-## Skills
+## What you need
 
-`skills/` holds five skills, plain Markdown read by the assistant: analytics,
-AI visibility, the marketing plan, paid advertising, and social publishing. Each
-names only tools this endpoint serves, and none contains commands or code.
+A Magister Marketing account with MCP access and a brand set up in it, from
+[magistermarketing.com](https://magistermarketing.com). What you can see and do
+depends on your role, the services you connected to Magister, the permissions
+you grant when you sign in, and your plan's usage budget.
 
 ## Install
 
-The package is designed for publication from
-`https://github.com/Magister-Marketing/magister-mcp`.
+- **Claude** (claude.ai, Cowork and Claude Code): install Magister Marketing
+  from the Claude plugin directory once the listing is published; a submission
+  does not mean an approved listing. To try this package before then, run
+  `claude --plugin-dir /absolute/path/to/this/package`. Magister is also
+  available in Claude as a connector on its own, without this plugin.
+- **Cursor**: install this repository as an Agent Plugin, or use the Cursor
+  Marketplace listing once approved.
+- **Grok Build**: install the plugin from its marketplace listing once approved.
+- **Grok chat**: add `https://mcp.magistermarketing.com/mcp/catalog` as a
+  custom MCP connector.
 
-- Cursor: install the public repository as an Agent Plugin or use the Cursor
-  Marketplace listing after approval. Cursor reads `plugin.json` and `mcp.json`.
-- Grok Build: install the plugin from its marketplace listing after approval.
-  Grok reads `.mcp.json`.
-- Claude Code and Cowork: install from the Claude plugin directory after
-  approval. For local testing, run `claude --plugin-dir /absolute/path/to/this/package`. Claude Code
-  reads `.claude-plugin/plugin.json` and auto-discovers the server from
-  `.mcp.json`. Magister is also available in Claude as a connector on its own,
-  without this plugin, by adding the custom connector URL below. Directory
-  submissions are pending; this package does not claim an approved listing.
-- Grok chat: add `https://mcp.magistermarketing.com/mcp/catalog` as a custom MCP
-  connector. xAI does not currently document a self-serve public catalog
-  submission route for Grok chat.
+The first time the assistant uses Magister, your browser opens Magister's
+sign-in. Choose the organization and the permissions to grant. No API key goes
+in these files.
 
-On first use, complete the Magister OAuth flow in the browser and select the
-organization and permissions to grant. No API key belongs in these files.
+## What stays in Magister
 
-`https://mcp.magistermarketing.com/mcp` and `/mcp/catalog` serve the same tools;
-they differ only in the OAuth resource a token is bound to, and the packages use
-`/mcp/catalog`. Claude uses `/mcp/anthropic`, a separate OAuth resource that
-omits general image generation and rejects stale image calls with a Magister
-link. This applies equally to reviewers and users. Other clients keep image
-generation through their existing endpoints. The endpoint assumes an existing Magister
-account and entitlement and does not create paid projects or initiate
-subscription checkout. It provides workflow tools and
-does not serve advertisements or sponsored content inside the client.
+- **Changes that go live wait for your approval.** Drafts and record edits run
+  directly. Publishing, sending, scheduling, and other changes that reach your
+  audience or your connected services wait for your own approval.
+- **No ad spend and no checkout.** Campaigns are created paused, and running
+  campaigns can be paused. Turning a campaign on, starting a paid plan, and
+  adding a priced brand are done in Magister.
+- **Each AI app gets the tools its provider's rules allow.** Magister runs one
+  MCP server for every app. Claude is not offered Magister's two general image
+  generators, under Anthropic's directory rules. Claude, ChatGPT and Codex are
+  not offered its Google Maps research and influencer discovery tools, which are
+  built on third-party scraping. A tool an app is not offered answers with a link to do that job in
+  Magister. Connecting your own outside MCP servers to Magister needs Magister
+  added by its own URL, `https://mcp.magistermarketing.com/mcp`, rather than
+  through a directory listing or this plugin.
+- **Magister enforces the rules on its server.** Its scopes, roles, budgets and
+  confirmation gates apply whatever a local description says. Irreversible,
+  external, send, and destructive effects are identified by each tool's
+  metadata.
+
+Magister provides workflow tools. It does not serve advertisements or sponsored
+content inside the assistant.
+
+## Skills
+
+`skills/` holds five skills, plain Markdown read by the assistant: the marketing
+plan, analytics, AI visibility, paid advertising, and social publishing. Each
+names only tools Magister's server offers, and none contains commands or code.
 
 ## Network and data disclosure
 
@@ -105,14 +114,25 @@ deletion and retention controls. Support is available at
 
 - OAuth credentials and provider tokens are never committed to this package.
 - There are no commands, subprocesses, hooks, or executable files.
-- The shared MCP configuration files pin the same HTTPS endpoint; the Claude Code
-  manifest explicitly selects the Anthropic endpoint under the same server name.
+- Every manifest points at the same HTTPS server; Claude's manifest selects its
+  `/mcp/anthropic` address, which holds every connection to Anthropic's rules.
 - Tool permissions and confirmation requirements are enforced by Magister's
   server; changing a local description cannot widen access.
 
 This third-party plugin is authored and maintained by Magister Marketing. It is
 not authored, controlled, verified, or endorsed by Cursor, Anysphere, xAI,
 Anthropic, or OpenAI.
+
+## For maintainers: one package, four hosts
+
+Each host reads a different manifest and ignores the rest. `plugin.json` and
+`mcp.json` are Agent Plugins 1.0.0 for Cursor. `.mcp.json` is read by Grok
+Build and auto-discovered by Claude Code. `.claude-plugin/plugin.json` is Claude
+Code's and Cowork's manifest; it declares the same `magister` server with the
+`https://mcp.magistermarketing.com/mcp/anthropic` address, which replaces the
+shared `/mcp/catalog` definition for Claude. All three addresses reach the same
+server; the tools a connection is offered follow its app's rules, as described
+under "What stays in Magister".
 
 ## License
 
