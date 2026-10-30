@@ -127,7 +127,8 @@ Build and auto-discovered by Claude Code. `.claude-plugin/plugin.json` is Claude
 Code's and Cowork's manifest; it declares the same `magister` server with the
 `https://mcp.magistermarketing.com/mcp/anthropic` address, which replaces the
 shared `/mcp/catalog` definition for Claude. All three addresses reach the same
-server and tools.
+server; the tools a connection is offered follow its app's rules, as described
+under "What stays in Magister".
 
 ## License
 
