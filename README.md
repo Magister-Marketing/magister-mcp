@@ -1,11 +1,11 @@
 # Magister Marketing
 
 Run your marketing from your AI assistant. This plugin connects Claude, Cursor,
-and Grok Build to your Magister Marketing workspace and adds five skills that
-show the assistant how to use it well. Ask what to work on next, how your site,
-search, ads and social are doing, whether AI assistants recommend your brand, or
-to draft and schedule this week's posts, and the assistant answers from your
-own brand data in Magister instead of generic advice.
+Grok Build and Grok Bot to your Magister Marketing workspace and adds five
+skills that show the assistant how to use it well. Ask what to work on next, how
+your site, search, ads and social are doing, whether AI assistants recommend
+your brand, or to draft and schedule this week's posts, and the assistant
+answers from your own brand data in Magister instead of generic advice.
 
 ## What you can do
 
@@ -47,9 +47,13 @@ you grant when you sign in, and your plan's usage budget.
   does not mean an approved listing. To try this package before then, run
   `claude --plugin-dir /absolute/path/to/this/package`. Magister is also
   available in Claude as a connector on its own, without this plugin.
-- **Cursor**: install this repository as an Agent Plugin, or use the Cursor
-  Marketplace listing once approved.
+- **Cursor**: install this repository as a plugin, or use the Cursor
+  Marketplace listing once approved. Ask in Agent mode: Cursor's Ask mode does
+  not call MCP tools.
 - **Grok Build**: install the plugin from its marketplace listing once approved.
+- **Grok Bot**: add Magister Marketing from the plugin marketplace once the
+  listing is approved, or add `https://mcp.magistermarketing.com/mcp/catalog`
+  as an MCP server.
 - **Grok chat**: add `https://mcp.magistermarketing.com/mcp/catalog` as a
   custom MCP connector.
 
@@ -123,16 +127,19 @@ This third-party plugin is authored and maintained by Magister Marketing. It is
 not authored, controlled, verified, or endorsed by Cursor, Anysphere, xAI,
 Anthropic, or OpenAI.
 
-## For maintainers: one package, four hosts
+## For maintainers: one package, many hosts
 
-Each host reads a different manifest and ignores the rest. `plugin.json` and
-`mcp.json` are Agent Plugins 1.0.0 for Cursor. `.mcp.json` is read by Grok
-Build and auto-discovered by Claude Code. `.claude-plugin/plugin.json` is Claude
-Code's and Cowork's manifest; it declares the same `magister` server with the
-`https://mcp.magistermarketing.com/mcp/anthropic` address, which replaces the
-shared `/mcp/catalog` definition for Claude. All three addresses reach the same
-server; the tools a connection is offered follow its app's rules, as described
-under "What stays in Magister".
+Each host reads the manifest it ranks highest. `.cursor-plugin/plugin.json` is
+Cursor's manifest and declares the `magister` server with the shared
+`https://mcp.magistermarketing.com/mcp/catalog` address. Cursor needs it:
+without one it reads `.claude-plugin/plugin.json` before the root files and
+connects at Claude's address. `.claude-plugin/plugin.json` is Claude Code's and
+Cowork's manifest; it declares the same server with the
+`https://mcp.magistermarketing.com/mcp/anthropic` address. `.mcp.json` is read
+by Grok Build and auto-discovered by Claude Code. `plugin.json` and `mcp.json`
+are Agent Plugins 1.0.0 for any other host that reads that format. Every address
+reaches the same server; the tools a connection is offered follow its app's
+rules, as described under "What stays in Magister".
 
 ## License
 
